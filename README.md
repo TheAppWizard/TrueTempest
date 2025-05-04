@@ -1,30 +1,10 @@
 # TrueTempest Weather API
 
-A simple Flask-based API that provides weather forecasts and geocoding services.
-
-## Table of Contents
-- [Setup](#setup)
-- [API Endpoints](#api-endpoints)
-  - [Weather Forecast](#weather-forecast)
-  - [Geocoding](#geocoding)
-- [Examples](#examples)
-  - [Geocoding Example](#geocoding-example)
-  - [Weather Example](#weather-example)
-- [Weather Codes](#weather-codes)
-
-## Setup
-
-```bash
-# Install dependencies
-pip install flask requests
-
-# Run the application
-python app.py
-```
-
-The server will start at `http://127.0.0.1:5000/`.
+A simple API that provides weather forecasts and geocoding services.
 
 ## API Endpoints
+
+The base URL for the API is: `http://3zx.ce0.mytemp.website/tempest`
 
 ### Weather Forecast
 
@@ -43,10 +23,17 @@ GET /weather
 | lon       | float  | Yes      | Longitude coordinate                        |
 | days      | int    | No       | Number of forecast days (default: 7)        |
 
-#### Example curl request
+#### Curl Example
 
 ```bash
-curl "http://127.0.0.1:5000/weather?city=London&lat=51.5074&lon=-0.1278&days=3"
+curl "http://3zx.ce0.mytemp.website/tempest/weather?city=London&lat=51.5074&lon=-0.1278&days=3"
+```
+
+#### Postman Example
+
+For Postman, simply create a GET request with the following URL:
+```
+http://3zx.ce0.mytemp.website/tempest/weather?city=London&lat=51.5074&lon=-0.1278&days=3
 ```
 
 #### Response
@@ -88,10 +75,17 @@ GET /geocoding
 |-----------|--------|----------|---------------------------------------------|
 | place     | string | Yes      | Place name to search for                    |
 
-#### Example curl request
+#### Curl Example
 
 ```bash
-curl "http://127.0.0.1:5000/geocoding?place=New+York"
+curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=New+York"
+```
+
+#### Postman Example
+
+For Postman, create a GET request with the following URL:
+```
+http://3zx.ce0.mytemp.website/tempest/geocoding?place=New+York
 ```
 
 #### Response
@@ -110,38 +104,68 @@ curl "http://127.0.0.1:5000/geocoding?place=New+York"
 ]
 ```
 
-## Examples
+## Practical Usage Examples
 
-### Complete Usage Example
+### Common API Combinations
 
-To get the weather for a location, you typically need to:
+Here are the most useful combinations for this API:
 
-1. First use the geocoding endpoint to get coordinates for a place name
-2. Then use those coordinates with the weather endpoint
+#### 1. Get coordinates and then weather for a location
 
-### Geocoding Example
-
+**Step 1:** Get coordinates for a location using geocoding
 ```bash
-curl "http://127.0.0.1:5000/geocoding?place=Paris"
+curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=Paris"
 ```
 
-### Weather Example
-
+**Step 2:** Use the returned coordinates to get weather forecast
 ```bash
-curl "http://127.0.0.1:5000/weather?city=Paris&lat=48.8566&lon=2.3522&days=5"
+curl "http://3zx.ce0.mytemp.website/tempest/weather?city=Paris&lat=48.8566&lon=2.3522&days=5"
 ```
 
-### One-liner (using jq for JSON processing)
+#### 2. Get weather for major cities
 
+**New York:**
 ```bash
-# Get coordinates for Paris, then get weather forecast
-COORDS=$(curl -s "http://127.0.0.1:5000/geocoding?place=Paris" | jq -r '.[0] | "lat=\(.lat)&lon=\(.lon)"') && \
-curl -s "http://127.0.0.1:5000/weather?city=Paris&$COORDS&days=3"
+curl "http://3zx.ce0.mytemp.website/tempest/weather?city=New+York&lat=40.7128&lon=-74.0060&days=3"
 ```
 
-## Weather Codes
+**Tokyo:**
+```bash
+curl "http://3zx.ce0.mytemp.website/tempest/weather?city=Tokyo&lat=35.6762&lon=139.6503&days=3"
+```
 
-The API uses the following weather codes:
+**Sydney:**
+```bash
+curl "http://3zx.ce0.mytemp.website/tempest/weather?city=Sydney&lat=-33.8688&lon=151.2093&days=3"
+```
+
+#### 3. Get longer forecast periods
+
+7-day forecast:
+```bash
+curl "http://3zx.ce0.mytemp.website/tempest/weather?city=London&lat=51.5074&lon=-0.1278&days=7"
+```
+
+#### 4. Get coordinates for various location types
+
+**For a city:**
+```bash
+curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=Berlin"
+```
+
+**For a landmark:**
+```bash
+curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=Eiffel+Tower"
+```
+
+**For a country:**
+```bash
+curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=New+Zealand"
+```
+
+### Weather Codes
+
+The API returns the following weather codes in the response:
 
 | Code | Description                     | Quote                                |
 |------|---------------------------------|--------------------------------------|
@@ -152,6 +176,12 @@ The API uses the following weather codes:
 | 45   | Foggy                           | "It's f*cking foggy."                |
 | 48   | Depositing rime fog             | "Watch out for this f*cking fog."    |
 | 51   | Light drizzle                   | "It's f*cking drizzling."            |
-| ... and more
-
-Each weather code corresponds to specific weather conditions and includes a colorful quote in the response.
+| 53   | Moderate drizzle                | "The drizzle is f*cking steady."     |
+| 55   | Dense drizzle                   | "This drizzle is f*cking heavy."     |
+| 61   | Slight rain                     | "It's f*cking sprinkling."           |
+| 63   | Moderate rain                   | "It's f*cking raining now."          |
+| 65   | Heavy rain                      | "It's f*cking pouring."              |
+| 71   | Slight snow                     | "It's f*cking snowing lightly."      |
+| 73   | Moderate snow                   | "The snow is f*cking steady."        |
+| 75   | Heavy snow                      | "It's f*cking dumping snow."         |
+| 95   | Thunderstorm                    | "It's f*cking thundering."           |
