@@ -4,7 +4,7 @@ A simple API that provides weather forecasts and geocoding services.
 
 ## API Endpoints
 
-The base URL for the API is: `http://3zx.ce0.mytemp.website/tempest`
+The base URL for the API is: `{Base URL}`
 
 ### Weather Forecast
 
@@ -26,14 +26,14 @@ GET /weather
 #### Curl Example
 
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/weather?city=London&lat=51.5074&lon=-0.1278&days=3"
+curl "{Base URL}/weather?city=London&lat=51.5074&lon=-0.1278&days=3"
 ```
 
 #### Postman Example
 
 For Postman, simply create a GET request with the following URL:
 ```
-http://3zx.ce0.mytemp.website/tempest/weather?city=London&lat=51.5074&lon=-0.1278&days=3
+{Base URL}/weather?city=London&lat=51.5074&lon=-0.1278&days=3
 ```
 
 #### Response
@@ -78,14 +78,14 @@ GET /geocoding
 #### Curl Example
 
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=New+York"
+curl "{Base URL}/geocoding?place=New+York"
 ```
 
 #### Postman Example
 
 For Postman, create a GET request with the following URL:
 ```
-http://3zx.ce0.mytemp.website/tempest/geocoding?place=New+York
+{Base URL}/geocoding?place=New+York
 ```
 
 #### Response
@@ -114,53 +114,53 @@ Here are the most useful combinations for this API:
 
 **Step 1:** Get coordinates for a location using geocoding
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=Paris"
+curl "{Base URL}/geocoding?place=Paris"
 ```
 
 **Step 2:** Use the returned coordinates to get weather forecast
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/weather?city=Paris&lat=48.8566&lon=2.3522&days=5"
+curl "{Base URL}/weather?city=Paris&lat=48.8566&lon=2.3522&days=5"
 ```
 
 #### 2. Get weather for major cities
 
 **New York:**
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/weather?city=New+York&lat=40.7128&lon=-74.0060&days=3"
+curl "{Base URL}/weather?city=New+York&lat=40.7128&lon=-74.0060&days=3"
 ```
 
 **Tokyo:**
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/weather?city=Tokyo&lat=35.6762&lon=139.6503&days=3"
+curl "{Base URL}/weather?city=Tokyo&lat=35.6762&lon=139.6503&days=3"
 ```
 
 **Sydney:**
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/weather?city=Sydney&lat=-33.8688&lon=151.2093&days=3"
+curl "{Base URL}/weather?city=Sydney&lat=-33.8688&lon=151.2093&days=3"
 ```
 
 #### 3. Get longer forecast periods
 
 7-day forecast:
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/weather?city=London&lat=51.5074&lon=-0.1278&days=7"
+curl "{Base URL}/weather?city=London&lat=51.5074&lon=-0.1278&days=7"
 ```
 
 #### 4. Get coordinates for various location types
 
 **For a city:**
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=Berlin"
+curl "{Base URL}/geocoding?place=Berlin"
 ```
 
 **For a landmark:**
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=Eiffel+Tower"
+curl "{Base URL}/geocoding?place=Eiffel+Tower"
 ```
 
 **For a country:**
 ```bash
-curl "http://3zx.ce0.mytemp.website/tempest/geocoding?place=New+Zealand"
+curl "{Base URL}/geocoding?place=New+Zealand"
 ```
 
 ### Weather Codes
